@@ -14,7 +14,7 @@ WHITE = (255, 255, 255)
 
 pygame.init()
 DISPLAYSURF=pygame.display.set_mode((1280,720), pygame.FULLSCREEN)
-pygame.display.set_caption('Hunted')
+pygame.display.set_caption('Game')
 player1 = player.hunter()
 bulletList = pygame.sprite.Group()
 baddieList = pygame.sprite.Group()
