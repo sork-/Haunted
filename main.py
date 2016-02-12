@@ -13,7 +13,7 @@ WHITE = (255, 255, 255)
 
 
 pygame.init()
-DISPLAYSURF=pygame.display.set_mode((1280,720), pygame.FULLSCREEN)
+DISPLAYSURF=pygame.display.set_mode((1280,720))
 pygame.display.set_caption('Game')
 player1 = player.hunter()
 bulletList = pygame.sprite.Group()
