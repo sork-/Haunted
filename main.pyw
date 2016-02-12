@@ -67,7 +67,9 @@ def showTitleScreen():
                     state = setGameState(2)
                 if selector.rect.y == 584:
                     state = setGameState(3)
-        
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.ext()
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
