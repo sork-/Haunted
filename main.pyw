@@ -19,6 +19,7 @@ player1 = player.hunter()
 bulletList = pygame.sprite.Group()
 baddieList = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
+score = 0
 
 allSprites.add(player1)
 
@@ -86,6 +87,7 @@ def showPlayer():
     
 def showMenus():
     displayText('Score: ', 'assets/thyssen.ttf', 30, WHITE, BLACK, (1130, 650))
+    displayText(score, 'assets/thyssen.ttf', 30, WHITE, BLACK, (1180, 650))
     
 def updateBullets(spriteList):
     for e in spriteList:
@@ -124,6 +126,7 @@ def checkCollision(bullets, monstas):
             if abs(b.rect.x - m.rect.x) < 10 and abs(b.rect.y - m.rect.y) < 18:
                 bullets.remove(b)
                 monstas.remove(m)
+                score = score + 1;
         
        
     
