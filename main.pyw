@@ -130,7 +130,7 @@ def checkCollision(bullets, monstas):
         
        
     
-#state = setGameState(0)
+state = setGameState(0)
 state = 'titleScreen'
 
 while True:
