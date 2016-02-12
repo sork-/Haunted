@@ -24,6 +24,7 @@ score = 0
 allSprites.add(player1)
 
 
+
 class cursor(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -39,6 +40,10 @@ class cursor(pygame.sprite.Sprite):
 def setGameState(number):
     global state
     state = gameStates[number]
+
+def exit_game():
+    pygame.quit()
+    sys.exit()
         
 
 def displayText(text, fontFile, fontSize, fontColor, backColor, center):
@@ -67,12 +72,11 @@ def showTitleScreen():
                     state = setGameState(2)
                 if selector.rect.y == 584:
                     state = setGameState(3)
+            #If the player presses the escape key the game will exit
             if event.key == K_ESCAPE:
-                pygame.quit()
-                sys.ext()
+                exit_game()            
         if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
+            exit_game()
             
         DISPLAYSURF.blit(selector.bitmap, selector.rect)
         pygame.display.update()
@@ -88,8 +92,8 @@ def showPlayer():
     DISPLAYSURF.blit(player1.image, (player1.rect.x, player1.rect.y))
     
 def showMenus():
-    displayText('Score: ', 'assets/thyssen.ttf', 30, WHITE, BLACK, (1130, 650))
-    displayText(score, 'assets/thyssen.ttf', 30, WHITE, BLACK, (1180, 650))
+    displayText(str(score), 'assets/thyssen.ttf', 30, WHITE, BLACK, (1130, 650))
+    displayText(str(score), 'assets/thyssen.ttf', 30, WHITE, BLACK, (1180, 650))
     
 def updateBullets(spriteList):
     for e in spriteList:
@@ -109,10 +113,11 @@ def mapEventCheck():
             if event.key == K_s:
                 player1.rect.y += 20
             if event.key == K_SPACE:
-                bulletList.add(player1.fireBullet())        
+                bulletList.add(player1.fireBullet())
+            if event.key == K_ESCAPE:
+                exit_game()
         if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
+            exit_game()
             
 def updateMonsters(spriteList):
     if len(spriteList) < 1:
