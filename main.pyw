@@ -62,7 +62,7 @@ def displayText(text, fontFile, fontSize, fontColor, backColor, center):
 
 def showTitleScreen():
     DISPLAYSURF.fill(BLACK)
-    displayText('Hunted', 'assets/ENDOR___.ttf', 80, TITLEFONTRED, BLACK, (640, 260))
+    displayText('Haunted', 'assets/ENDOR___.ttf', 80, TITLEFONTRED, BLACK, (640, 260))
     displayText('New Game', 'assets/thyssen.ttf', 20, WHITE, BLACK, (640, 530))
     displayText('Continue', 'assets/thyssen.ttf', 20, WHITE, BLACK, (640, 590))   
     
