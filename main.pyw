@@ -150,6 +150,9 @@ def checkCollision(bullets, monstas):
                 bullets.remove(b)
                 monstas.remove(m)
                 return True
+    for m in monstas:
+        if abs(player1.rect.x + 40 - m.rect.x) < 5 and abs(player1.rect.y - m.rect.y) < 50:
+            exit_game()        
                 
 
         
