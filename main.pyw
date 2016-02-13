@@ -119,7 +119,7 @@ def mapEventCheck():
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
-                bulletList.add(player1.fireBullet())
+                bulletList.add(player1.fireBullet())              
             if event.key == K_ESCAPE:
                 exit_game()
         if event.type == QUIT:
