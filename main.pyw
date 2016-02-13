@@ -12,14 +12,19 @@ WHITE = (255, 255, 255)
 
 
 
+
 pygame.init()
+FPS=30
+fpsClock=pygame.time.Clock()
+
+
 DISPLAYSURF=pygame.display.set_mode((1280,720))
 pygame.display.set_caption('Game')
 player1 = player.hunter()
 bulletList = pygame.sprite.Group()
 baddieList = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
-score = 0
+
 
 allSprites.add(player1)
 
@@ -92,7 +97,7 @@ def showPlayer():
     DISPLAYSURF.blit(player1.image, (player1.rect.x, player1.rect.y))
     
 def showMenus():
-    displayText(str(score), 'assets/thyssen.ttf', 30, WHITE, BLACK, (1130, 650))
+    displayText('Score: ', 'assets/thyssen.ttf', 30, WHITE, BLACK, (1130, 650))
     displayText(str(score), 'assets/thyssen.ttf', 30, WHITE, BLACK, (1180, 650))
     
 def updateBullets(spriteList):
@@ -100,24 +105,34 @@ def updateBullets(spriteList):
         e.rect.x += e.xvelocity
         if e.rect.x > 1500:
             spriteList.remove(e)
-        
+
+def isTerrainPassable(newPlayerPositionX, newPlayerPositionY):
+    if levels.level1Terrain[(newPlayerPositionY // 64)][(newPlayerPositionX // 64)] == 2:
+        return False
+    else:
+        return True
+    
+#checks if the spot the player is moving too is walkable terrain, and if so
+#moves the player there.
 def mapEventCheck():
     for event in pygame.event.get():
         if event.type == KEYDOWN:
-            if event.key == K_d:
-                player1.rect.x += 20
-            if event.key == K_a:
-                player1.rect.x -= 20
-            if event.key == K_w:
-                player1.rect.y -= 20
-            if event.key == K_s:
-                player1.rect.y += 20
             if event.key == K_SPACE:
                 bulletList.add(player1.fireBullet())
             if event.key == K_ESCAPE:
                 exit_game()
         if event.type == QUIT:
             exit_game()
+            
+    keys = pygame.key.get_pressed()
+    if keys[K_a] and isTerrainPassable(player1.rect.x, player1.rect.y + 20):
+        player1.rect.x -= 5
+    if keys[K_d] and isTerrainPassable(player1.rect.x + 50, player1.rect.y + 20):
+        player1.rect.x += 5
+    if keys[K_w] and isTerrainPassable(player1.rect.x + 30, player1.rect.y - 50):
+        player1.rect.y -= 5
+    if keys[K_s] and isTerrainPassable(player1.rect.x + 30, player1.rect.y + 20):
+        player1.rect.y += 5
             
 def updateMonsters(spriteList):
     if len(spriteList) < 1:
@@ -133,7 +148,8 @@ def checkCollision(bullets, monstas):
             if abs(b.rect.x - m.rect.x) < 10 and abs(b.rect.y - m.rect.y) < 18:
                 bullets.remove(b)
                 monstas.remove(m)
-                score = score + 1;
+                score = score + 1
+
         
        
     
@@ -145,6 +161,7 @@ while True:
     selector = cursor()
     selector.rect.x = 570
     selector.rect.y = 520
+    score = 0
     
     while state == 'titleScreen':
         showTitleScreen()
@@ -160,12 +177,13 @@ while True:
         DISPLAYSURF.fill(BLACK)
         showTerrain(levels.level1Terrain)
         showPlayer()
-        showMenus()
         bulletList.draw(DISPLAYSURF)
         baddieList.draw(DISPLAYSURF)
         updateBullets(bulletList)
         updateMonsters(baddieList)
         checkCollision(bulletList, baddieList)
         mapEventCheck()
-        pygame.display.update()             
+        showMenus()
+        pygame.display.update()
+        fpsClock.tick(FPS)
 
