@@ -149,6 +149,8 @@ def checkCollision(bullets, monstas):
             if abs(b.rect.x - m.rect.x) < 10 and abs(b.rect.y - m.rect.y) < 18:
                 bullets.remove(b)
                 monstas.remove(m)
+                pygame.mixer.music.load('assets/Sound/ghostDie.xm')
+                pygame.mixer.music.play(1, 0.0)                  
                 return True
     for m in monstas:
         if abs(player1.rect.x + 40 - m.rect.x) < 5 and abs(player1.rect.y - m.rect.y) < 50:
