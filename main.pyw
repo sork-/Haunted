@@ -18,6 +18,7 @@ FPS=30
 fpsClock=pygame.time.Clock()
 
 
+pygame.mixer.pre_init(44100, -16, 2, 2048)
 DISPLAYSURF=pygame.display.set_mode((1280,720))
 pygame.display.set_caption('Game')
 player1 = player.hunter()
@@ -148,26 +149,33 @@ def checkCollision(bullets, monstas):
             if abs(b.rect.x - m.rect.x) < 10 and abs(b.rect.y - m.rect.y) < 18:
                 bullets.remove(b)
                 monstas.remove(m)
-                score = score + 1
+                return True
+                
 
         
        
     
 state = setGameState(0)
 state = 'titleScreen'
+score = 0
 
 while True:
     
+    tick = 1
     selector = cursor()
     selector.rect.x = 570
     selector.rect.y = 520
-    score = 0
     
     while state == 'titleScreen':
+        if tick == 1:
+            pygame.mixer.music.load('assets/Sound/05.xm')
+            pygame.mixer.music.play(-1, 0.0)
+            tick += 1
         showTitleScreen()
         
     while state == 'newGame':
         print("in newgame state")
+        pygame.mixer.music.stop()
         state = 'map'
     
     while state == 'loadGame':
@@ -181,7 +189,8 @@ while True:
         baddieList.draw(DISPLAYSURF)
         updateBullets(bulletList)
         updateMonsters(baddieList)
-        checkCollision(bulletList, baddieList)
+        if checkCollision(bulletList, baddieList):
+            score += 1
         mapEventCheck()
         showMenus()
         pygame.display.update()
