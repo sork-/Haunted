@@ -47,6 +47,12 @@ def setGameState(number):
     global state
     state = gameStates[number]
 
+def loadData():
+    """This function will load saved data so the the player can
+    continue where they left off"""
+    pass     #Temporary 
+    
+
 def exit_game():
     pygame.quit()
     sys.exit()
