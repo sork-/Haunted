@@ -54,6 +54,8 @@ def loadData():
     
 
 def exit_game():
+    if state == 1:
+        pass     #Once we figure out how to save game data, it will go here.
     pygame.quit()
     sys.exit()
         
