@@ -50,7 +50,8 @@ def setGameState(number):
 def loadData():
     """This function will load saved data so the the player can
     continue where they left off"""
-    pass     #Temporary 
+    pass     #Temporary
+    return True
     
 
 def exit_game():
@@ -193,6 +194,7 @@ while True:
     
     while state == 'loadGame':
         loadData()
+        state = 'titleScreen'
     
     while state == 'map':
         DISPLAYSURF.fill(BLACK)
