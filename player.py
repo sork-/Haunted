@@ -18,7 +18,7 @@ class hunter(pygame.sprite.Sprite):
         newBullet.rect.x = self.rect.x + 58
         newBullet.rect.y = self.rect.y + 39
         newBullet.xvelocity = 15
-        pygame.mixer.music.load('assets/Sound/bulletFire.xm')
+        pygame.mixer.music.load('assets/Sound/bulletFire.mp3')
         pygame.mixer.music.play(1, 0.0)          
         return newBullet
         
