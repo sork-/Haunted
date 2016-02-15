@@ -158,7 +158,7 @@ def checkCollision(bullets, monstas):
             if abs(b.rect.x - m.rect.x) < 10 and abs(b.rect.y - m.rect.y) < 18:
                 bullets.remove(b)
                 monstas.remove(m)
-                pygame.mixer.music.load('assets/Sound/ghostDie.xm')
+                pygame.mixer.music.load('assets/Sound/ghostDie.mp3')
                 pygame.mixer.music.play(1, 0.0)                  
                 return True
     for m in monstas:
@@ -182,7 +182,7 @@ while True:
     
     while state == 'titleScreen':
         if tick == 1:
-            pygame.mixer.music.load('assets/Sound/05.xm')
+            pygame.mixer.music.load('assets/Sound/05.mp3')
             pygame.mixer.music.play(-1, 0.0)
             tick += 1
         showTitleScreen()
