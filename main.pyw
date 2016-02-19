@@ -1,35 +1,6 @@
 import pygame, sys, player, levels, monsters
 from pygame.locals import *
 
-gameStates = {0 : 'titleScreen',
-              1 : 'map',
-              2 : 'newGame',
-              3 : 'loadGame'}
-
-BLACK = (0, 0, 0)
-TITLEFONTRED = (200, 20, 20)
-WHITE = (255, 255, 255)
-
-
-
-
-pygame.init()
-FPS=30
-fpsClock=pygame.time.Clock()
-
-
-pygame.mixer.pre_init(44100, -16, 2, 2048)
-DISPLAYSURF=pygame.display.set_mode((1280,720))
-pygame.display.set_caption('Game')
-player1 = player.hunter()
-bulletList = pygame.sprite.Group()
-baddieList = pygame.sprite.Group()
-allSprites = pygame.sprite.Group()
-
-
-allSprites.add(player1)
-
-
 
 class cursor(pygame.sprite.Sprite):
     def __init__(self):
@@ -53,14 +24,15 @@ def loadData():
     pass     #Temporary
     return True
     
-
 def exit_game():
-    if state == 1:
-        pass     #Once we figure out how to save game data, it will go here.
+    #In the future: pause the game, load menu showing options to save, resume, exit
+    if state == 'map':
+        file = open('save_data', 'w')
+        file.write(str(score))
+        file.close()
     pygame.quit()
     sys.exit()
         
-
 def displayText(text, fontFile, fontSize, fontColor, backColor, center):
     font = pygame.font.Font(fontFile, fontSize)
     
@@ -69,7 +41,6 @@ def displayText(text, fontFile, fontSize, fontColor, backColor, center):
     textRect.center = center
     DISPLAYSURF.blit(textSurfaceObj, textRect)
     
-
 def showTitleScreen():
     DISPLAYSURF.fill(BLACK)
     displayText('Haunted', 'assets/ENDOR___.ttf', 80, TITLEFONTRED, BLACK, (640, 260))
@@ -164,17 +135,35 @@ def checkCollision(bullets, monstas):
     for m in monstas:
         if abs(player1.rect.x + 40 - m.rect.x) < 5 and abs(player1.rect.y - m.rect.y) < 50:
             exit_game()        
-                
 
-        
-       
-    
+gameStates = {0 : 'titleScreen',
+              1 : 'map',
+              2 : 'newGame',
+              3 : 'loadGame'}
+
+BLACK = (0, 0, 0)
+TITLEFONTRED = (200, 20, 20)
+WHITE = (255, 255, 255)
+
+pygame.init()
+FPS=30
+fpsClock=pygame.time.Clock()
+
+pygame.mixer.pre_init(44100, -16, 2, 2048)
+DISPLAYSURF=pygame.display.set_mode((1280,720))
+pygame.display.set_caption('Game')
+player1 = player.hunter()
+bulletList = pygame.sprite.Group()
+baddieList = pygame.sprite.Group()
+allSprites = pygame.sprite.Group()
+
+allSprites.add(player1)
+
 state = setGameState(0)
 state = 'titleScreen'
 score = 0
-
+                
 while True:
-    
     tick = 1
     selector = cursor()
     selector.rect.x = 570
