@@ -25,8 +25,11 @@ def loadData():
     return True
     
 def exit_game():
-    if state == 1:
-        pass     #Once we figure out how to save game data, it will go here.
+    #In the future: pause the game, load menu showing options to save, resume, exit
+    if state == 'map':
+        file = open('save_data', 'w')
+        file.write(str(score))
+        file.close()
     pygame.quit()
     sys.exit()
         
